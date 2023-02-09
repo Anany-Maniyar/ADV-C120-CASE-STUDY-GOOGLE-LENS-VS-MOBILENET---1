@@ -1,0 +1,157 @@
+<html>
+<head>
+  <title>Real Time Image Identification App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.js"></script>
+  <script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<center>
+  <h3 class="heading">CASE STUDY GOOGLE LENS VS MOBILENET </h3>
+  <br>
+  <span style="font-size: 25px; font-weight: bold;"> Google Lens
+  <img src="data:image/png;base64,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">
+  </span>
+  <br>
+  <h3 class="heading">VS</h3>
+  <br>
+  <button class="btn btn-info" style="font-size: 25px; font-weight: bold;">MOBILENET</button>
+  <br><br>
+  <ol>
+    <div class="test_image_and_result col-xs-12">
+      <li style="font-size: 18px; color: white;  margin-left: 4px;" class="col-sm-4 col-xs-12">
+        <b style="font-size: 18px; color: white;">test Image - </b>
+        <img src="bottle.png" class="img-responsive">
+      </li>
+
+      <h5 style="border-radius: 10px; background-color: white; font-size: 18px; margin-left: -10px; margin-right: 5px;" class="col-sm-4 col-xs-12">
+        Output on <b style="color: red;">Google Lens</b> - 
+        <span>Water Bottle</span>
+      </h5>
+
+      <h5 style="border-radius: 10px; background-color: white; font-size: 18px;" class="col-sm-4 col-xs-12">
+        Output on <b style="color: red;">Mobilenet Model </b> - 
+        <span>Water Bottle</span>
+      </h5>
+
+      <div class="mini_result" style="font-size: 18px; font-weight: bold;" class="col-xs-12">
+        <h4>Result - </h4>
+        <hr>
+        <h4 style="color: white;">Draw</h4>
+      </div>
+      
+    </div>
+    
+    <div style="margin-top: 30px;" class="test_image_and_result col-xs-12">
+      <li style="font-size: 18px; color: white;  margin-left: 4px;" class="col-sm-4 col-xs-12">
+        <b style="font-size: 18px; color: white;">test Image - </b>
+        <img src="shoes.png" class="img-responsive">
+      </li>
+
+      <h5 style="border-radius: 10px; background-color: white; font-size: 18px; margin-left: -10px; margin-right: 5px;" class="col-sm-4 col-xs-12">
+        Output on <b style="color: red;">Google Lens</b> - 
+        <span>Canvas Shoes</span>
+      </h5>
+
+      <h5 style="border-radius: 10px; background-color: white; font-size: 18px;" class="col-sm-4 col-xs-12">
+        Output on <b style="color: red;">Mobilenet Model </b> - 
+        <span>Running Shoes</span>
+      </h5>
+
+      <div class="mini_result" style="font-size: 18px; font-weight: bold;" class="col-xs-12">
+        <h4>Result - </h4>
+        <hr>
+        <h4 style="color: white;">GOOGLE LENS is more Accurate</h4>
+      </div>
+      
+    </div>
+    
+    <div style="margin-top: 30px;" class="test_image_and_result col-xs-12">
+      <li style="font-size: 18px; color: white;  margin-left: 4px;" class="col-sm-4 col-xs-12">
+        <b style="font-size: 18px; color: white;">test Image - </b>
+        <img src="Headphones.png" class="img-responsive">
+      </li>
+
+      <h5 style="border-radius: 10px; background-color: white; font-size: 18px; margin-left: -10px; margin-right: 5px;" class="col-sm-4 col-xs-12">
+        Output on <b style="color: red;">Google Lens</b> - 
+        <span>Headphone</span>
+      </h5>
+
+      <h5 style="border-radius: 10px; background-color: white; font-size: 18px;" class="col-sm-4 col-xs-12">
+        Output on <b style="color: red;">Mobilenet Model </b> - 
+        <span>Microphone, Mike</span>
+      </h5>
+
+      <div class="mini_result" style="font-size: 18px; font-weight: bold;" class="col-xs-12">
+        <h4>Result - </h4>
+        <hr>
+        <h4 style="color: white;">GOOGLE LENS is more Accurate</h4>
+      </div>
+      
+    </div>
+
+    <div style="margin-top: 30px;" class="test_image_and_result col-xs-12">
+      <li style="font-size: 18px; color: white;  margin-left: 4px;" class="col-sm-4 col-xs-12">
+        <b style="font-size: 18px; color: white;">test Image - </b>
+        <img src="Soft Toy.png" class="img-responsive">
+      </li>
+
+      <h5 style="border-radius: 10px; background-color: white; font-size: 18px; margin-left: -10px; margin-right: 5px;" class="col-sm-4 col-xs-12">
+        Output on <b style="color: red;">Google Lens</b> - 
+        <span>Soft Toy</span>
+      </h5>
+
+      <h5 style="border-radius: 10px; background-color: white; font-size: 18px;" class="col-sm-4 col-xs-12">
+        Output on <b style="color: red;">Mobilenet Model </b> - 
+        <span>Ski Mask</span>
+      </h5>
+
+      <div class="mini_result" style="font-size: 18px; font-weight: bold;" class="col-xs-12">
+        <h4>Result - </h4>
+        <hr>
+        <h4 style="color: white;">GOOGLE LENS is more Accurate</h4>
+      </div>
+      
+    </div>
+
+    <div style="margin-top: 30px;" class="test_image_and_result col-xs-12">
+      <li style="font-size: 18px; color: white;  margin-left: 4px;" class="col-sm-4 col-xs-12">
+        <b style="font-size: 18px; color: white;">test Image - </b>
+        <img src="bed.png" class="img-responsive">
+      </li>
+
+      <h5 style="border-radius: 10px; background-color: white; font-size: 18px; margin-left: -10px; margin-right: 5px;" class="col-sm-4 col-xs-12">
+        Output on <b style="color: red;">Google Lens</b> - 
+        <span>Bed, Pillow, Blanket</span>
+      </h5>
+
+      <h5 style="border-radius: 10px; background-color: white; font-size: 18px;" class="col-sm-4 col-xs-12">
+        Output on <b style="color: red;">Mobilenet Model </b> - 
+        <span>Bathtub, Bathing Tub, Bath, Tub</span>
+      </h5>
+
+      <div class="mini_result" style="font-size: 18px; font-weight: bold;" class="col-xs-12">
+        <h4>Result - </h4>
+        <hr>
+        <h4 style="color: white;">GOOGLE LENS is more Accurate</h4>
+      </div>
+      
+    </div>
+
+    
+<div class="copy_right_footer">
+  Developed by - Anany Maniyar
+</div>
+
+<script src=".js"></script>
+</body>
+
+</html>
+
+

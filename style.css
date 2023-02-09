@@ -1,0 +1,10 @@
+  .heading
+  {
+    color: red;
+    font-size: 35px;
+    font-weight: bold;
+  }
+  .test_image_and_result {
+    background-color: gray;
+    border-radius: 5px;
+  }
